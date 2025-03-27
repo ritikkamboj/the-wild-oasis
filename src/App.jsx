@@ -3,12 +3,8 @@ import styled from "styled-components";
 import GlobalStyles from "./styles/globalStyles";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
+import Heading from "./ui/Heading";
 
-const H1 = styled.h1`
-  font-weight: 600;
-  font-size: 30px;
-  background-color: yellow;
-`;
 
 
 
@@ -21,7 +17,9 @@ function App() {
     <>
     <GlobalStyles/>
      <StyleApp>
-      <H1>App</H1>
+      <Heading as="h1">App</Heading>
+      <Heading as="h2">Form</Heading>
+      <Heading as="h3">check In and Out </Heading>
       <Button onClick={() => alert("checkin clicked")}>Check In </Button>
       <Button onClick={() => alert("checkout clicked")}>Check out</Button>
       <Input placeholder="Enter the number here..." type="number"/>
