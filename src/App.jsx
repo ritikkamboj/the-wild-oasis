@@ -20,8 +20,8 @@ function App() {
           <Heading as="h1">The Wild Oasis</Heading>
           <div>
             <Heading as="h2">Check in and Check Out</Heading>
-            <Button onClick={() => alert("checkin clicked")}>Check In </Button>
-            <Button onClick={() => alert("checkout clicked")}>Check out</Button>
+            <Button variations="primary" size="medium" onClick={() => alert("checkin clicked")}>Check In </Button>
+            <Button variations="secondary" size="small" onClick={() => alert("checkout clicked")}>Check out</Button>
           </div>
         </Row>
 
