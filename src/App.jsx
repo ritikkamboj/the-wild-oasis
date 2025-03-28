@@ -1,41 +1,38 @@
-import React from "react";
-import styled from "styled-components";
-import GlobalStyles from "./styles/globalStyles";
-import Button from "./ui/Button";
-import Input from "./ui/Input";
-import Heading from "./ui/Heading";
-import Row from "./ui/Row";
+import React from 'react'
+import GlobalStyles from './styles/globalStyles'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import Dashboard from './pages/Dashboard'
+import Account from './pages/Account'
+import Bookings from './pages/Bookings'
+import Cabins from './pages/Cabins'
+import Login from './pages/Login'
+import Settings from './pages/Settings'
+import NewUsers from './pages/Users'
+import PageNotFound from './pages/PageNotFound'
 
-const StyleApp = styled.div`
-  /* background-color: red; */
-  padding: 20px;
-`;
 function App() {
   return (
     <>
-      <GlobalStyles />
-      <StyleApp>
-        <Row type="vertical">
-        <Row type="horizontal">
-          <Heading as="h1">The Wild Oasis</Heading>
-          <div>
-            <Heading as="h2">Check in and Check Out</Heading>
-            <Button variations="primary" size="medium" onClick={() => alert("checkin clicked")}>Check In </Button>
-            <Button variations="secondary" size="small" onClick={() => alert("checkout clicked")}>Check out</Button>
-          </div>
-        </Row>
+<GlobalStyles/>
+<BrowserRouter>
+<Routes>
+  <Route index  path='/' element={<Navigate to="/dashboard" replace/>}></Route>
+  <Route path='/dashboard' element={<Dashboard/>}></Route>
+  <Route path='/account' element={<Account/>}></Route>
+  <Route path='/bookings' element={<Bookings/>}></Route>
+  <Route path='/cabins' element={<Cabins/>}></Route>
+  <Route path='/login' element={<Login/>}></Route>
+  <Route path='/settings' element={<Settings/>}></Route>
+  <Route path='/newuser' element={<NewUsers/>}></Route>
+  <Route path='*' element={<PageNotFound/>}></Route>
+</Routes>
 
-        <Row type="vertical">
-          <Heading as="h3">Form</Heading>
-          <form>
-            <Input placeholder="Enter the number here..." type="number" />
-            <Input placeholder="Enter the number here..." type="number" />
-          </form>
-        </Row>
-        </Row>
-      </StyleApp>
+
+</BrowserRouter>
+    
+    
     </>
-  );
+  )
 }
 
-export default App;
+export default App
