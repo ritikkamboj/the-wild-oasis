@@ -4,8 +4,8 @@ import styled from 'styled-components'
 const StyledSidebar = styled.aside`
   
     background-color: var(--color-gray-0);
-  padding: 1rem 1.6rem;
-  border-bottom: 2px solid var(--color-brand-900);
+  padding: 3.2rem 2.4rem;
+  border-bottom: 2px solid var(--color-grey-100);
   grid-row: 1/-1;
 `
 

@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 const StyledHeader = styled.header`
   background-color: var(--color-gray-0);
-  padding: 2rem 2.4rem;
-  border-bottom: 2px solid var(--color-yellow-700);
+  padding: 1.2rem 4.8rem;
+  border-bottom: 2px solid var(--color-grey-100);
 `
 
 function Header() {
