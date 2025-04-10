@@ -9,11 +9,24 @@ import Login from './pages/Login'
 import Settings from './pages/Settings'
 import NewUsers from './pages/Users'
 import PageNotFound from './pages/PageNotFound'
-import AppLayout from './ui/AppLayout'
+import AppLayout from './ui/AppLayout';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+const queryClient = new QueryClient({
+  defaultOptions :{
+    queries :{
+      staleTime : 60*1000 
+    }
+    }
+  }
+
+)
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false}/>
 <GlobalStyles/>
 <BrowserRouter>
 <Routes>
@@ -35,9 +48,8 @@ function App() {
 
 
 </BrowserRouter>
+</QueryClientProvider>
     
-    
-    </>
   )
 }
 
