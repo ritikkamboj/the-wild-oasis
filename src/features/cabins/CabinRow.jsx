@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from "styled-components";
 
 const TableRow = styled.div`
@@ -38,3 +39,13 @@ const Discount = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
+
+
+
+function CabinRow() {
+  return (
+    <div>CabinRow</div>
+  )
+}
+
+export default CabinRow
