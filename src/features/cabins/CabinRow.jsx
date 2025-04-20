@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
+import { useMutation } from "@tanstack/react-query";
+import { deleteCabins } from "../../services/apiCabins";
 
 const TableRow = styled.div`
   display: grid;
@@ -42,15 +44,23 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }) {
-  const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
+  const { id:cabinID, name, maxCapacity, regularPrice, discount, image } = cabin;
+  console.log(cabinID)
+
+  const {isLoading : isDeleting , mutate} = useMutation({
+    mutationFn : (id) => deleteCabins(id),
+    // mutationFn :  deleteCabins,
+
+    // here in above casse mutationFn call the function with id internally 
+  })
   return (
     <TableRow role="row">
-      <img src={image} />
+      <Img src={image} />
       <Cabin>{name}</Cabin>
       <div>The capacity of the cabins is {maxCapacity}</div>
       <Price>{formatCurrency(regularPrice)}</Price>
       <Discount>{formatCurrency(discount)}</Discount>
-      <button>Delete</button>
+      <button onClick={() => mutate(cabinID)} disabled={isDeleting}>Delete</button>
 
     </TableRow>
   );
