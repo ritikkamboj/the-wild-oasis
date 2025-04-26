@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import FormRow2 from "../../ui/FormRow";
+import { BiData } from "react-icons/bi";
 
 // const FormRow = styled.div`
 //   display: grid;
@@ -69,8 +70,9 @@ function CreateCabinForm() {
   });
 
   function onSubmit(data) {
-    console.log(data);
-    mutate(data);
+    // console.log(data.image)
+    console.log({...data, image : data.image[0]});
+    mutate({...data, image : data.image[0]});
   }
 
   function onError(errors) {
@@ -80,7 +82,7 @@ function CreateCabinForm() {
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow2 label="Cabin Name" error={errors?.name?.message}>
         <Input
-          type="text"
+          type="number"
           id="name"
           {...register("name", { required: "This field is Required" })}
         />
@@ -140,7 +142,7 @@ function CreateCabinForm() {
 
       <FormRow2 label="Cabin Photo">
         
-        <FileInput id="image" accept="image/*"  {...register("name", { required: "This field is Required" })} />
+        <FileInput id="image" accept="image/*"  {...register("image", { required: "This field is Required" })} />
       </FormRow2>
 
       <FormRow2>
