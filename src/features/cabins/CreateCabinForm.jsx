@@ -1,4 +1,4 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -9,50 +9,51 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
+import FormRow2 from "../../ui/FormRow";
 
-const FormRow = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 24rem 1fr 1.2fr;
-  gap: 2.4rem;
+// const FormRow = styled.div`
+//   display: grid;
+//   align-items: center;
+//   grid-template-columns: 24rem 1fr 1.2fr;
+//   gap: 2.4rem;
 
-  padding: 1.2rem 0;
+//   padding: 1.2rem 0;
 
-  &:first-child {
-    padding-top: 0;
-  }
+//   &:first-child {
+//     padding-top: 0;
+//   }
 
-  &:last-child {
-    padding-bottom: 0;
-  }
+//   &:last-child {
+//     padding-bottom: 0;
+//   }
 
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
+//   &:not(:last-child) {
+//     border-bottom: 1px solid var(--color-grey-100);
+//   }
 
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.2rem;
-  }
-`;
+//   &:has(button) {
+//     display: flex;
+//     justify-content: flex-end;
+//     gap: 1.2rem;
+//   }
+// `;
 
-const Label = styled.label`
-  font-weight: 500;
-`;
+// const Label = styled.label`
+//   font-weight: 500;
+// `;
 
-const Error = styled.span`
-  font-size: 1.4rem;
-  color: var(--color-red-700);
-`;
+// const Error = styled.span`
+//   font-size: 1.4rem;
+//   color: var(--color-red-700);
+// `;
 
 function CreateCabinForm() {
   const queryClient = useQueryClient();
 
-  const { register, handleSubmit, reset, getValues , formState } = useForm();
+  const { register, handleSubmit, reset, getValues, formState } = useForm();
 
-  const {errors} = formState ;
-  console.log(errors)
+  const { errors } = formState;
+  console.log(errors);
   const { mutate, isLoading: isCreating } = useMutation({
     // mutationFn : (newCabin) => createCabin(newCabin)
     mutationFn: createCabin,
@@ -77,18 +78,15 @@ function CreateCabinForm() {
   }
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
-      <FormRow>
-        <Label htmlFor="name">Cabin name</Label>
+      <FormRow2 label="Cabin Name" error={errors?.name?.message}>
         <Input
           type="text"
           id="name"
           {...register("name", { required: "This field is Required" })}
         />
-        {errors?.name?.message && <Error>{errors.name.message}</Error>}
-      </FormRow>
-
-      <FormRow>
-        <Label htmlFor="maxCapacity">Maximum capacity</Label>
+      </FormRow2>
+      
+      <FormRow2 label="Maximum Capacity" error={errors?.maxCapacity?.message}>
         <Input
           type="number"
           id="maxCapacity"
@@ -97,11 +95,12 @@ function CreateCabinForm() {
             min: { value: 1, message: "The value here must be atleast 1" },
           })}
         />
-      </FormRow>
+      </FormRow2>
 
-      <FormRow>
-        <Label htmlFor="regularPrice">Regular price</Label>
-        <Input
+      
+
+      <FormRow2 label="Regular Price" error={errors?.regularPrice?.message}>
+      <Input
           type="number"
           id="regularPrice"
           {...register("regularPrice", {
@@ -109,40 +108,48 @@ function CreateCabinForm() {
             min: { value: 1, message: "The value here must be atleast 1" },
           })}
         />
-      </FormRow>
+      </FormRow2>
 
-      <FormRow>
-        <Label htmlFor="discount">Discount</Label>
-        <Input
+      
+      <FormRow2 label="Discount" error={errors?.discount?.message}>
+      <Input
           type="number"
           id="discount"
           defaultValue={0}
-          {...register("discount", { required: "This field is Required" , validate : (value)=> value <= getValues().regularPrice || "discount must be less then regularPrice"})}
+          {...register("discount", {
+            required: "This field is Required",
+            validate: (value) =>
+              value <= getValues().regularPrice ||
+              "discount must be less then regularPrice",
+          })}
         />
-      </FormRow>
+      </FormRow2>
 
-      <FormRow>
-        <Label htmlFor="description">Description for website</Label>
-        <Textarea
+      
+      <FormRow2 label="Description For Website" error={errors?.description?.message}>
+      <Textarea
           type="number"
           id="description"
           defaultValue=""
           {...register("description", { required: "This field is Required" })}
         />
-      </FormRow>
+      </FormRow2>
 
-      <FormRow>
-        <Label htmlFor="image">Cabin photo</Label>
+      
+     
+
+      <FormRow2 label="Cabin Photo">
+        
         <FileInput id="image" accept="image/*" />
-      </FormRow>
+      </FormRow2>
 
-      <FormRow>
+      <FormRow2>
         {/* type is an HTML attribute! */}
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
         <Button disabled={isCreating}>Add Cabin</Button>
-      </FormRow>
+      </FormRow2>
     </Form>
   );
 }

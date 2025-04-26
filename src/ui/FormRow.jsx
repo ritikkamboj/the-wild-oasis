@@ -39,10 +39,10 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-function FormRow({label , error , children}) {
-  console.log(children.props.id)  // nice trick to fetch props of a dynamic children 
+function FormRow2({label , error , children}) {
+  // console.log(children.props.id)  // nice trick to fetch props of a dynamic children 
   return <StyledFormRow>
-    {label && <Label htmlFor="name">{label}</Label>}
+    {label && <Label htmlFor={children.props.id}>{label}</Label>}
     {/* <Input
       type="text"
       id="name"
@@ -54,4 +54,4 @@ function FormRow({label , error , children}) {
    
   }
 
-export default FormRow
+export default FormRow2
