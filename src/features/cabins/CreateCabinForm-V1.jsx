@@ -48,13 +48,10 @@ import { BiData } from "react-icons/bi";
 //   color: var(--color-red-700);
 // `;
 
-function CreateCabinForm({cabinToEdit ={}}) {
-
-  const {id:editId , ...editValues} = cabinToEdit ; 
-  const isEditSession = Boolean(editId);
+function CreateCabinForm() {
   const queryClient = useQueryClient();
-console.log(editValues, "jai baabe ki");
-  const { register, handleSubmit, reset, getValues, formState } = useForm({defaultValues : isEditSession ? editValues : {} });
+
+  const { register, handleSubmit, reset, getValues, formState } = useForm();
 
   const { errors } = formState;
   console.log(errors);

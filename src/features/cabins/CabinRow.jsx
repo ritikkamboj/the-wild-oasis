@@ -4,6 +4,7 @@ import { formatCurrency } from "../../utils/helpers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabins } from "../../services/apiCabins";
 import toast from "react-hot-toast";
+// import CreateCabinForm from "./CreateCabinForm-V1";
 import CreateCabinForm from "./CreateCabinForm";
 
 const TableRow = styled.div`
@@ -87,7 +88,7 @@ function CabinRow({ cabin }) {
           </button>
         </div>
       </TableRow>
-      {showForm && <CreateCabinForm />}
+      {showForm && <CreateCabinForm cabinToEdit={cabin} />}
     </>
   );
 }
