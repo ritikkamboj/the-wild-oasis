@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabins } from "../../services/apiCabins";
 import toast from "react-hot-toast";
+import CreateCabinForm from "./CreateCabinForm";
 
 const TableRow = styled.div`
   display: grid;
@@ -45,35 +46,49 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }) {
-  const { id:cabinID, name, maxCapacity, regularPrice, discount, image } = cabin;
-  console.log(cabinID)
+  const [showForm, setShowForm] = useState(false);
+  const {
+    id: cabinID,
+    name,
+    maxCapacity,
+    regularPrice,
+    discount,
+    image,
+  } = cabin;
+  console.log(cabinID);
 
   const queryClient = useQueryClient();
 
-  const {isLoading : isDeleting , mutate} = useMutation({
+  const { isLoading: isDeleting, mutate } = useMutation({
     // mutationFn : (id) => deleteCabins(id),
-    mutationFn :  deleteCabins,
-    onSuccess : () => {
-      toast.success("Cabin Deleted Successfully ")
+    mutationFn: deleteCabins,
+    onSuccess: () => {
+      toast.success("Cabin Deleted Successfully ");
       queryClient.invalidateQueries({
-        queryKey : ['cabins']
-      })
-
+        queryKey: ["cabins"],
+      });
     },
-    onError : (err)=> toast.error(err.message)
+    onError: (err) => toast.error(err.message),
 
-    // here in above casse mutationFn call the function with id internally 
-  })
+    // here in above casse mutationFn call the function with id internally
+  });
   return (
-    <TableRow role="row">
-      <Img src={image} />
-      <Cabin>{name}</Cabin>
-      <div>The capacity of the cabins is {maxCapacity}</div>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
-      <button onClick={() => mutate(cabinID)} disabled={isDeleting}>Delete</button>
-
-    </TableRow>
+    <>
+      <TableRow role="row">
+        <Img src={image} />
+        <Cabin>{name}</Cabin>
+        <div>The capacity of the cabins is {maxCapacity}</div>
+        <Price>{formatCurrency(regularPrice)}</Price>
+        <Discount>{formatCurrency(discount)}</Discount>
+        <div>
+          <button onClick={() => setShowForm((state)=>!state)}>Edit</button>
+          <button onClick={() => mutate(cabinID)} disabled={isDeleting}>
+            Delete
+          </button>
+        </div>
+      </TableRow>
+      {showForm && <CreateCabinForm />}
+    </>
   );
 }
 
