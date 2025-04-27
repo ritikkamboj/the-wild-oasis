@@ -7,7 +7,7 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCabin } from "../../services/apiCabins";
+import { createEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import FormRow2 from "../../ui/FormRow";
 import { BiData } from "react-icons/bi";
@@ -60,7 +60,7 @@ console.log(editValues, "jai baabe ki");
   console.log(errors);
   const { mutate, isLoading: isCreating } = useMutation({
     // mutationFn : (newCabin) => createCabin(newCabin)
-    mutationFn: createCabin,
+    mutationFn: createEditCabin,
     onSuccess: () => {
       toast.success("Cabin Created Successfully ");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
@@ -145,7 +145,7 @@ console.log(editValues, "jai baabe ki");
 
       <FormRow2 label="Cabin Photo">
         
-        <FileInput id="image" accept="image/*"  {...register("image", { required: "This field is Required" })} />
+        <FileInput id="image" accept="image/*"  {...register("image", { required: isEditSession ? false :  "This field is Required" })} />
       </FormRow2>
 
       <FormRow2>
@@ -153,7 +153,7 @@ console.log(editValues, "jai baabe ki");
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isCreating}>Add Cabin</Button>
+        <Button disabled={isCreating}>{isEditSession ? "Edit Cabin" : "Create New Cabin"}</Button>
       </FormRow2>
     </Form>
   );

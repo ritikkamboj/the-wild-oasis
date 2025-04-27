@@ -14,22 +14,23 @@ export async function getCabins() {
     return data;
 }
 
-export async function createCabin(newCabin) {
+export async function createEditCabin(newCabin, id) {
     // https://rmbreqytkekbinbdiywb.supabase.co/storage/v1/object/public/cabins-images//cabin-001.jpg
 
     const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll('/', "");
 
     const imagePath = `${supabaseUrl}/storage/v1/object/public/cabins-images/${imageName}`
 
+    let query
 
-    const { data, error } = await supabase
-        .from('cabin')
-        .insert([
-            { ...newCabin, image: imagePath },
-        ])
-        .select()
+    if (!id)
+        query = supabase.from('cabin')
+            .insert([
+                { ...newCabin, image: imagePath },
+            ])
+            .select().single()
 
-
+    const { data, error } = await query;
 
     if (error) {
         console.log(error)
