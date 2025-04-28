@@ -149,10 +149,11 @@ const image = typeof data.image === "string" ? data.image : data.image[0];
           defaultValue={0}
           {...register("discount", {
             required: "This field is Required",
-            validate: (value) =>
-              value <= getValues().regularPrice ||
-              "discount must be less then regularPrice",
-          })}
+            validate: (value) =>{
+              console.log(value)
+              return +value <= getValues().regularPrice ||
+              "discount must be less then regularPrice"
+          }})}
         />
       </FormRow2>
 

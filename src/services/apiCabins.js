@@ -25,7 +25,7 @@ export async function createEditCabin(newCabin, id) {
 
     const imagePath = hasImagePath ? newCabin.image : `${supabaseUrl}/storage/v1/object/public/cabins-images/${imageName}`;
 
-    let query = supabase.from("cabins");
+    let query = supabase.from("cabin");
 
     // A) Below code is to create the entry 
     if (!id)
