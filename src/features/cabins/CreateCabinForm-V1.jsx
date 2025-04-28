@@ -7,7 +7,7 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCabin } from "../../services/apiCabins";
+import { createEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import FormRow2 from "../../ui/FormRow";
 import { BiData } from "react-icons/bi";
@@ -57,7 +57,7 @@ function CreateCabinForm() {
   console.log(errors);
   const { mutate, isLoading: isCreating } = useMutation({
     // mutationFn : (newCabin) => createCabin(newCabin)
-    mutationFn: createCabin,
+    mutationFn: createEditCabin,
     onSuccess: () => {
       toast.success("Cabin Created Successfully ");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });

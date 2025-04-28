@@ -73,9 +73,9 @@ console.log(editValues, "jai baabe ki");
   });
 
   function onSubmit(data) {
-    // console.log(data.image)
-    console.log({...data, image : data.image[0]});
-    mutate({...data, image : data.image[0]});
+    console.log(data)
+    // console.log({...data, image : data.image[0]});
+    // mutate({...data, image : data.image[0]});
   }
 
   function onError(errors) {

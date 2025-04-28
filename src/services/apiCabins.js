@@ -21,13 +21,19 @@ export async function createEditCabin(newCabin, id) {
 
     const imagePath = `${supabaseUrl}/storage/v1/object/public/cabins-images/${imageName}`
 
-    let query
+    let query = supabase.from("cabins");
 
+    // A) Below code is to create the entry 
     if (!id)
-        query = supabase.from('cabin')
+        query = query
             .insert([
                 { ...newCabin, image: imagePath },
             ])
+            .select().single()
+
+    if (id)
+        query = query.update({ ...newCabin, image: imagePath })
+            .eq('id', id)
             .select().single()
 
     const { data, error } = await query;
@@ -58,6 +64,7 @@ export async function createEditCabin(newCabin, id) {
 
 
     }
+    return data;
 }
 
 export async function deleteCabins(id) {
