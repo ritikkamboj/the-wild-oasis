@@ -6,7 +6,7 @@ import CabinTable from "../features/cabins/CabinTable";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "../ui/Spinner";
 import Button from "../ui/Button";
-import CreateCabinForm from "../features/cabins/CreateCabinForm-V1";
+import CreateCabinForm from "../features/cabins/CreateCabinForm";
 
 function Cabins() {
 

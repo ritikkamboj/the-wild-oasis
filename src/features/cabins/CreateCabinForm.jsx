@@ -58,7 +58,7 @@ console.log(editValues, "jai baabe ki");
 
   const { errors } = formState;
   console.log(errors);
-  const { mutate, isLoading: isCreating } = useMutation({
+  const { mutate : createCabin, isLoading: isCreating } = useMutation({
     // mutationFn : (newCabin) => createCabin(newCabin)
     mutationFn: createEditCabin,
     onSuccess: () => {
@@ -72,10 +72,31 @@ console.log(editValues, "jai baabe ki");
     },
   });
 
+  const { mutate : editCabin, isLoading: isEditing } = useMutation({
+    // mutationFn : (newCabin) => createCabin(newCabin)
+    mutationFn: ({newCabinData , id} ) => createEditCabin(newCabinData , id ),
+    onSuccess: () => {
+      toast.success("Cabin Edited Successfully");
+      queryClient.invalidateQueries({ queryKey: ["cabins"] });
+
+      reset();
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
+  const isWorking = isCreating || isEditing ; 
+
   function onSubmit(data) {
-    console.log(data)
+    // console.log(data)
     // console.log({...data, image : data.image[0]});
-    // mutate({...data, image : data.image[0]});
+const image = typeof data.image === "string" ? data.image : data.image[0];
+
+    if(isEditSession)
+      editCabin({newCabinData : {...data , image }, id: editId});
+    else
+    createCabin({...data, image : data.image[0]});
   }
 
   function onError(errors) {
@@ -87,6 +108,7 @@ console.log(editValues, "jai baabe ki");
         <Input
           type="number"
           id="name"
+          disabled={isWorking}
           {...register("name", { required: "This field is Required" })}
         />
       </FormRow2>
@@ -95,6 +117,8 @@ console.log(editValues, "jai baabe ki");
         <Input
           type="number"
           id="maxCapacity"
+          disabled={isWorking}
+
           {...register("maxCapacity", {
             required: "This field is Required",
             min: { value: 1, message: "The value here must be atleast 1" },
@@ -108,6 +132,7 @@ console.log(editValues, "jai baabe ki");
       <Input
           type="number"
           id="regularPrice"
+          disabled={isWorking}
           {...register("regularPrice", {
             required: "This field is Required",
             min: { value: 1, message: "The value here must be atleast 1" },
@@ -120,6 +145,7 @@ console.log(editValues, "jai baabe ki");
       <Input
           type="number"
           id="discount"
+          disabled={isWorking}
           defaultValue={0}
           {...register("discount", {
             required: "This field is Required",
@@ -135,6 +161,7 @@ console.log(editValues, "jai baabe ki");
       <Textarea
           type="number"
           id="description"
+          disabled={isWorking}
           defaultValue=""
           {...register("description", { required: "This field is Required" })}
         />
@@ -153,7 +180,7 @@ console.log(editValues, "jai baabe ki");
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isCreating}>{isEditSession ? "Edit Cabin" : "Create New Cabin"}</Button>
+        <Button disabled={isWorking}>{isEditSession ? "Edit Cabin" : "Create New Cabin"}</Button>
       </FormRow2>
     </Form>
   );
