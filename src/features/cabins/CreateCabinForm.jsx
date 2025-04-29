@@ -11,6 +11,8 @@ import { createEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import FormRow2 from "../../ui/FormRow";
 import { BiData } from "react-icons/bi";
+import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 
 // const FormRow = styled.div`
 //   display: grid;
@@ -58,33 +60,10 @@ console.log(editValues, "jai baabe ki");
 
   const { errors } = formState;
   console.log(errors);
-  const { mutate : createCabin, isLoading: isCreating } = useMutation({
-    // mutationFn : (newCabin) => createCabin(newCabin)
-    mutationFn: createEditCabin,
-    onSuccess: () => {
-      toast.success("Cabin Created Successfully ");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
 
-      reset();
-    },
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
+  const { isCreating, createCabin} = useCreateCabin() ; 
+  const { editCabin, isEditing} = useEditCabin() ;
 
-  const { mutate : editCabin, isLoading: isEditing } = useMutation({
-    // mutationFn : (newCabin) => createCabin(newCabin)
-    mutationFn: ({newCabinData , id} ) => createEditCabin(newCabinData , id ),
-    onSuccess: () => {
-      toast.success("Cabin Edited Successfully");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-
-      reset();
-    },
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
 
   const isWorking = isCreating || isEditing ; 
 
@@ -94,9 +73,13 @@ console.log(editValues, "jai baabe ki");
 const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if(isEditSession)
-      editCabin({newCabinData : {...data , image }, id: editId});
+      editCabin({newCabinData : {...data , image }, id: editId}, {onSuccess : (data) => {
+        console.log(data)  // here we can access the data returns by mutateFunction , (point to be remembered )
+        reset() }});
     else
-    createCabin({...data, image : data.image[0]});
+    createCabin({...data, image : data.image[0]}, {onSuccess : (data) => {
+      console.log(data)  // here we can access the data returns by mutateFunction , (point to be remembered )
+      reset() }});
   }
 
   function onError(errors) {
