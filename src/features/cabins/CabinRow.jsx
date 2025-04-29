@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabins } from "../../services/apiCabins";
-import toast from "react-hot-toast";
 // import CreateCabinForm from "./CreateCabinForm-V1";
 import CreateCabinForm from "./CreateCabinForm";
+import { useDeleteCabin } from "./useDeleteCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -58,21 +56,8 @@ function CabinRow({ cabin }) {
   } = cabin;
   console.log(cabinID);
 
-  const queryClient = useQueryClient();
+  const {isDeleting , deleteCabins} = useDeleteCabin() ;
 
-  const { isLoading: isDeleting, mutate } = useMutation({
-    // mutationFn : (id) => deleteCabins(id),
-    mutationFn: deleteCabins,
-    onSuccess: () => {
-      toast.success("Cabin Deleted Successfully ");
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-    },
-    onError: (err) => toast.error(err.message),
-
-    // here in above casse mutationFn call the function with id internally
-  });
   return (
     <>
       <TableRow role="row">
@@ -80,10 +65,10 @@ function CabinRow({ cabin }) {
         <Cabin>{name}</Cabin>
         <div>The capacity of the cabins is {maxCapacity}</div>
         <Price>{formatCurrency(regularPrice)}</Price>
-        <Discount>{formatCurrency(discount)}</Discount>
+        {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash</span>}
         <div>
           <button onClick={() => setShowForm((state)=>!state)}>Edit</button>
-          <button onClick={() => mutate(cabinID)} disabled={isDeleting}>
+          <button onClick={() => deleteCabins(cabinID)} disabled={isDeleting}>
             Delete
           </button>
         </div>
