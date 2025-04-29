@@ -77,7 +77,7 @@ const image = typeof data.image === "string" ? data.image : data.image[0];
         console.log(data)  // here we can access the data returns by mutateFunction , (point to be remembered )
         reset() }});
     else
-    createCabin({...data, image : data.image[0]}, {onSuccess : (data) => {
+    createCabin({...data, image}, {onSuccess : (data) => {
       console.log(data)  // here we can access the data returns by mutateFunction , (point to be remembered )
       reset() }});
   }
