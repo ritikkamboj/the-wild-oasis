@@ -50,7 +50,7 @@ import { useEditCabin } from "./useEditCabin";
 //   color: var(--color-red-700);
 // `;
 
-function CreateCabinForm({cabinToEdit ={}}) {
+function CreateCabinForm({cabinToEdit ={}, onCloseModal}) {
 
   const {id:editId , ...editValues} = cabinToEdit ; 
   const isEditSession = Boolean(editId);
@@ -161,7 +161,7 @@ const image = typeof data.image === "string" ? data.image : data.image[0];
 
       <FormRow2>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button onClick={() =>onCloseModal?.()} variation="secondary" type="reset">
           Cancel
         </Button>
         <Button disabled={isWorking}>{isEditSession ? "Edit Cabin" : "Create New Cabin"}</Button>
