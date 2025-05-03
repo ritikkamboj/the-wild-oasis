@@ -88,7 +88,7 @@ const image = typeof data.image === "string" ? data.image : data.image[0];
     console.log(errors);
   }
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)} type={onCloseModal ? "modal" : "regular"}>
       <FormRow2 label="Cabin Name" error={errors?.name?.message}>
         <Input
           type="number"
