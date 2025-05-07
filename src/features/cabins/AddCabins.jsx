@@ -18,23 +18,26 @@ import Modal from "../../ui/Modal";
 // }
 
 
-function AddCabins()
-{
-  return <Modal>
-    <Modal.Open opens='cabin-form'>
-      <Button>Add New Cabin </Button>
-    </Modal.Open>
-    <Modal.Window name="cabin-form">
-      <CreateCabinForm/>
-    </Modal.Window>
-
+function AddCabins() {
+  return (
+    <div>
+      <Modal>
+        <Modal.Open opens="cabin-form">
+          <Button>Add New Cabin </Button>
+        </Modal.Open>
+        <Modal.Window name="cabin-form">
+          <CreateCabinForm />
+        </Modal.Window>
+        {/* 
     <Modal.Open opens='table'>
       <Button>Show Tables</Button>
     </Modal.Open>
     <Modal.Window name="table">
       <CabinTable/>
-    </Modal.Window>
-  </Modal>
+    </Modal.Window> */}
+      </Modal>
+    </div>
+  );
 }
 
 
