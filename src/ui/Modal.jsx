@@ -85,19 +85,21 @@ function Window({ children, name }) {
   const ref = useRef() ;
 
 
-  useEffect(() => {
-    function handleClick(e) {
-      if(ref.current && !ref.current.contains(e.targert))
-      {
-        console.log('click Outside ')
-        close();
+  useEffect(
+    function () {
+      function handleClick(e) {
+        if (ref.current && !ref.current.contains(e.target)) {
+          console.log("click Outside ");
+          close();
+        }
       }
-    }
 
-    document.addEventListener("click", handleClick);
+      document.addEventListener("mousedown", handleClick);
 
-    return () => document.removeEventListener("click", handleClick);
-  }, [close]);
+      return () => document.removeEventListener("mousedown", handleClick);
+    },
+    [close]
+  );
 
   if (name !== openName) return null;
   return createPortal(
