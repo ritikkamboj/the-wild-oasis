@@ -1,3 +1,4 @@
+import React, { createContext } from 'react'
 import styled from "styled-components";
 
 const StyledMenu = styled.div`
@@ -60,3 +61,43 @@ const StyledButton = styled.button`
     transition: all 0.3s;
   }
 `;
+
+const MenusContext = createContext() ;
+
+
+function Menus({children}) {
+const [openId , setOpenId] = useState('');
+const close = () => setOpenId('');
+const open = setOpenId; 
+
+
+  return (
+    <MenusContext.Provider value={{openId}}>{children}</MenusContext.Provider>
+  )
+}
+
+function Toggle({id})
+{
+
+}
+
+function List({id})
+{
+  
+}
+
+
+function Button({children})
+{
+  return <li>
+    <StyledButton>{children}</StyledButton>
+  </li>
+}
+
+Menus.Menu = Menu ;
+Menus.Toggle = Toggle ;
+Menus.List = List ;
+Menus.Button = Button ;
+
+
+export default Menus
