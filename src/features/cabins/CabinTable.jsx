@@ -4,6 +4,7 @@ import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 // const Table = styled.div`
 //   border: 1px solid var(--color-grey-200);

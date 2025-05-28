@@ -75,6 +75,9 @@ const open = setOpenId;
     <MenusContext.Provider value={{openId}}>{children}</MenusContext.Provider>
   )
 }
+function Menu(){
+  
+}
 
 function Toggle({id})
 {
