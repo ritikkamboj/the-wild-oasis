@@ -81,7 +81,7 @@ function Menu(){
 
 function Toggle({id})
 {
-
+return <StyleToggle onClick></StyleToggle>
 }
 
 function List({id})
