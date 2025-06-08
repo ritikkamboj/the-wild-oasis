@@ -77,7 +77,8 @@ const open = setOpenId;
     <MenusContext.Provider value={{openId ,close , open }}>{children}</MenusContext.Provider>
   )
 }
-function Menu(){
+function Menu({children}){
+  return <StyledMenu>{children}</StyledMenu>
   
 }
 
