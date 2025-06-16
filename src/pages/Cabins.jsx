@@ -8,6 +8,7 @@ import Spinner from "../ui/Spinner";
 import Button from "../ui/Button";
 import CreateCabinForm from "../features/cabins/CreateCabinForm";
 import AddCabins from "../features/cabins/AddCabins";
+import CabinTableOperations from "../features/cabins/CabinTableOperations";
 
 function Cabins() {
 
@@ -27,7 +28,8 @@ function Cabins() {
     
       <Row type="horizontal">
         <Heading as="h1">All cabins</Heading>
-        <p>Filter/Sort</p>
+        {/* <p>Filter/Sort</p> */}
+        <CabinTableOperations/>
       </Row>
       <Row>
         <CabinTable />
