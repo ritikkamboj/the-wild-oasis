@@ -59,7 +59,7 @@ function MainNav() {
         <li><StyledNavLink to="/bookings"><HiOutlineCalendarDays/><span>Bookings</span></StyledNavLink></li>
         <li><StyledNavLink to="/cabins"><HiOutlineHomeModern/><span>Cabins</span></StyledNavLink></li>
         <li><StyledNavLink to="/users"><HiOutlineUser/><span>Users</span></StyledNavLink></li>
-        <li><StyledNavLink to="/settings"><HiOutlineCog8Tooth/><span>Bookings</span></StyledNavLink></li>
+        <li><StyledNavLink to="/settings"><HiOutlineCog8Tooth/><span>Settings</span></StyledNavLink></li>
        
       </NavList>
     </nav>
