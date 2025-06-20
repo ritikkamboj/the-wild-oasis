@@ -1,3 +1,4 @@
+import React from 'react'
 import styled, { css } from "styled-components";
 
 const StyledFilter = styled.div`
@@ -33,3 +34,12 @@ const FilterButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+
+function Filter() {
+  return (
+    <StyledFilter>Filter</StyledFilter>
+  )
+}
+
+export default Filter
