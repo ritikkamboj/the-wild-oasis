@@ -38,7 +38,12 @@ const FilterButton = styled.button`
 
 function Filter() {
   return (
-    <StyledFilter>Filter</StyledFilter>
+    <StyledFilter>
+      <FilterButton>All</FilterButton>
+      <FilterButton>No Discount</FilterButton>
+      <FilterButton>With Discount</FilterButton>
+
+    </StyledFilter>
   )
 }
 
