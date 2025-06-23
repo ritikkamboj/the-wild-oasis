@@ -62,7 +62,7 @@ function CabinRow({ cabin }) {
     image,
     description,
   } = cabin;
-  console.log(cabinID);
+  // console.log(cabinID);
 
   function handleDuplicates() {
     createCabin({
