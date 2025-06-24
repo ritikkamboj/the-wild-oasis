@@ -3,7 +3,7 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 
 function BookingTable() {
-  const bookings = [];
+  const bookings =[];
 
   return (
     <Menus>
